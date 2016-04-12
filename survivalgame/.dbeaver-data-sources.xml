@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data-sources>
+	<data-source id="hsqldb_embedded-15407c5eb3a-3116e7b181cafe8c" provider="generic" driver="hsqldb_embedded" name="HSQLDB - CityDB" create-date="1460419334097" save-password="true" show-system-objects="true" read-only="false">
+		<connection server="" database="/Users/Doctor/git/citydblab/citydblab/dbs/CityDB" url="jdbc:hsqldb:file:/Users/Doctor/git/citydblab/citydblab/dbs/CityDB" user="" type="dev">
+			<bootstrap/>
+		</connection>
+	</data-source>
+</data-sources>
