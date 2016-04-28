@@ -1,10 +1,10 @@
 package edu.cis232.survivalgame;
 
-public class Chest extends Object{
+public class Chest extends Openable{
 	protected int value;
 	
 	public Chest(String name, int value){
-		super(name);
+		super(name, value);
 		this.value = value;
 	}
 	public void Open(){

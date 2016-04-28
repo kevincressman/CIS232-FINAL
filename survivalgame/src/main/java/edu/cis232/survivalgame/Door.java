@@ -1,10 +1,10 @@
 package edu.cis232.survivalgame;
 
-public class Door extends Object{
+public class Door extends Openable{
 	protected int value;
 	
 	public Door(String name, int value){
-		super(name);
+		super(name, value);
 		this.value = value;
 	}
 	public void Open(){

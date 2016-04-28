@@ -1,7 +1,7 @@
 package edu.cis232.survivalgame;
 
 
-public class Openable extends Object{
+public abstract class Openable extends Object{
 	protected int value;
 	
 	public Openable(String name, int value){
