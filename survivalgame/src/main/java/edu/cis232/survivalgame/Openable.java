@@ -8,6 +8,10 @@ public abstract class Openable extends Object{
 		super(name);
 		this.value = value;
 	}
+	public Openable(String name, Item i){
+		super(name);
+		this.value = value;
+	}
 	
 	public void Open(){
 		System.out.println("You open the "+getName());
