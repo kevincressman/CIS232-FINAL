@@ -1,9 +1,7 @@
 package edu.cis232.survivalgame;
 
-import edu.cis232.survivalgame.CreateImageDB;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -18,6 +16,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 public class GameController {
+	
+ArrayList<Item> inventory = new ArrayList<Item>();
+
+	
 	
 	@FXML
     private ImageView imgBack;
@@ -39,32 +41,63 @@ public class GameController {
     
     /*
      * Opens the chest and adds items to the players inventory
-     */
-    @FXML
-    void OpenChest(MouseEvent event) {
-    	
-    	lblMessage.setText(OpenIfOpenable(ARGUMENTS));
-    }
-
+     */ 
     /*
      * Attempts to open the door seeing whether or not the
      * door is locked
      */
     @FXML
-    void OpenDoor(MouseEvent event) {
-
+    void OpenObject(MouseEvent event, Object thingy) {
+    	
+    	OpenIfOpenable(thingy , inventory);
+    	
     }
+  
     
     /*
      * Will create the first room and if the Database is not created
      * Will create the Database
      */
 
-    @FXML
+	private void OpenIfOpenable(Object thingy, ArrayList<Item> inventory){
+    	if(thingy instanceof Door){
+    		Openable opened = (Openable)thingy;
+    		lblMessage.setText(opened.Open());
+    		
+    	}else if(thingy instanceof Chest){
+    		Openable opened = (Openable)thingy;
+    		lblMessage.setText(opened.Open());
+    		Item i = ((Chest) opened).getItem();
+    		inventory.add(i);
+    		
+    	}else if(thingy instanceof LockedDoor){
+    		Openable opened = (Openable)thingy;
+    		lblMessage.setText(opened.Open());
+    		//on click
+    		CheckForKey((LockedDoor)thingy, inventory);
+    		
+    	} else {
+    		lblMessage.setText("The "+ thingy.getName() + " is not openable");
+    	}
+    }
+
+    private void CheckForKey(LockedDoor door, ArrayList<Item> inventory){
+
+    for(Item i : inventory){
+    	String s = "You Cannot open this door.";
+    	if(door.getValue()==i.getValue()){
+    		lblMessage.setText(door.unlock());
+    		s = "";
+    	}
+    	lblMessage.setText(s);
+    }
+    }
+
+	@FXML
     void Start(ActionEvent event) throws SQLException {
     	
     	try {
-			buildRoom();
+			firstRoom();
 			btnStart.visibleProperty().setValue(false);
 		} catch (SQLException e) {
 				CreateImageDB.initDB();
@@ -75,7 +108,7 @@ public class GameController {
     /*
      * Reads from the database and sets the first room images
      */
-    public void buildRoom() throws SQLException{
+    public void firstRoom() throws SQLException{
     	final String DB_URL = "jdbc:hsqldb:file:ObjectsDB/objects;ifexists=true;hsqldb.lock_file=false";
     	
     	// Create a connection to the database.
@@ -97,45 +130,20 @@ public class GameController {
         
         conn.close();
         
+        
+        
         Image doorImage = new Image(door);
         Image chestImage = new Image(chest);
         Image hallImage = new Image(hall);
         
         imgBack.setImage(hallImage);
         
+        
+        Door door1 = new Door("First Door", 0);
         img1.setImage(doorImage);
+        Chest chest1 = new Chest("First Chest", new Item("Iron Key", 1));
         img2.setImage(chestImage);
         
     }
-	public static void OpenifOpenable(Object object, ArrayList<Item> inventory){
-		if(object instanceof Door){
-			Openable opened = (Openable)object;
-			opened.Open();
-			
-		}else if(object instanceof Chest){
-			Openable opened = (Openable)object;
-			opened.Open();
-			Item i = ((Chest) opened).getItem();
-			inventory.add(i);
-			
-		}else if(object instanceof LockedDoor){
-			Openable opened = (Openable)object;
-			opened.Open();
-			//on click
-			CheckForKey((LockedDoor)object, inventory);
-			
-		} else {
-			System.out.println("The "+ object.getName() + " is not openable");
-		}
-	}
 
-	public static void CheckForKey(LockedDoor door, ArrayList<Item> inventory){
-		
-		for(Item i : inventory){
-			if(door.getValue()==i.getValue()){
-				door.unlock();
-				System.out.println("The "+ door.getName() + " Has Been Opened!");
-			}
-		}
-	}
 }

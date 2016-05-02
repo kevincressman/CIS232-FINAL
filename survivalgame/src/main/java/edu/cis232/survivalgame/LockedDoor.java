@@ -28,8 +28,10 @@ public class LockedDoor extends Openable{
 			}
 		
 		}
-	public void unlock(){
+	public String unlock(){
 			locked = false;
+			String statement = "You Unlocked the "+getName();
+			return statement;
 	}
 	public void Inspect(){
 		System.out.println("A Sturdy Wooden Door.");
