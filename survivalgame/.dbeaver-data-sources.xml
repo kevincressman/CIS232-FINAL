@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <data-sources>
-	<data-source id="hsqldb_embedded-154532dc2ae-72c0be2a4a1b254d" provider="generic" driver="hsqldb_embedded" name="HSQLDB - personnel" create-date="1461684417972" save-password="true" show-system-objects="true" read-only="false">
-		<connection server="" database="/Users/Doctor/git/Chapter16Lab/PersonnelDB/personnel" url="jdbc:hsqldb:file:/Users/Doctor/git/Chapter16Lab/PersonnelDB/personnel" user="" type="dev">
+	<data-source id="hsqldb_embedded-1545a4f1c7e-7bc2983fb5ebc1ed" provider="generic" driver="hsqldb_embedded" name="HSQLDB - objects" create-date="1461804043256" save-password="true" show-system-objects="true" read-only="false">
+		<connection server="" database="/Users/Doctor/git/CIS232-FINAL/survivalgame/ObjectsDB/objects" url="jdbc:hsqldb:file:/Users/Doctor/git/CIS232-FINAL/survivalgame/ObjectsDB/objects" user="" type="dev">
 			<bootstrap/>
 		</connection>
 	</data-source>

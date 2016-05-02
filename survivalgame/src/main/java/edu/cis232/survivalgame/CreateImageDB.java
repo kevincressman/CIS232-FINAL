@@ -9,25 +9,12 @@ public class CreateImageDB {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		final String DB_URL = "jdbc:hsqldb:file:ObjectsDB/objects";
-
-			try {
-				// Create a connection to the database.
-				Connection conn = DriverManager.getConnection(DB_URL);
-	
-				dropTables(conn);
-				
-				buildImageTable(conn);
-				
-				conn.close();
-			} catch (Exception ex) {
-				System.out.println("ERROR: " + ex.getMessage());
-			}
+			initDB();
     	}
 	
 
 	/*
-	 * Drops Employee Table if already exists
+	 * Drops Image Table if already exists
 	 */
 	public static void dropTables(Connection conn) {
 		System.out.println("Checking for existing tables.");
@@ -40,7 +27,7 @@ public class CreateImageDB {
 				stmt.execute("DROP TABLE Image");
 				System.out.println("Image table dropped.");
 			} catch (SQLException ex) {
-	
+				ex.printStackTrace();
 			}
 			
 		} catch (SQLException ex) {
@@ -50,8 +37,8 @@ public class CreateImageDB {
 	}
 	
 	/*
-	 * Creates the Employee Table
-	 * also adds in five rows of data
+	 * Creates the Image Table
+	 * also adds in four rows of data
 	 */
     
 	public static void buildImageTable(Connection conn) {
@@ -60,30 +47,41 @@ public class CreateImageDB {
 			Statement stmt = conn.createStatement();
 
 			// Create the table.
-			stmt.execute("CREATE TABLE Image (" + "ImageID CHAR(10) NOT NULL PRIMARY KEY, " + "Name CHAR(25), " + "Adress CHAR(500), " + ")");
+			stmt.execute("CREATE TABLE Image (" + "ImageID CHAR(10) NOT NULL PRIMARY KEY, " + "Name CHAR(25), " + "Address CHAR(5000) " + ")");
 
-			// Insert row #1.
-			stmt.execute("INSERT INTO Image VALUES ( " + "'D-101', " + "'Door', " 
-						 + "'http://preview.turbosquid.com/Preview/2014/07/10__22_08_28/asdasd.jpg89018b1d-3ab2-4763-bb9b-e301982cbe3aOriginal.jpg', )");
-//
-//			// Insert row #2.
-//			stmt.execute("INSERT INTO Image VALUES ( " + "'A-101', " + "'Hall', " 
-//						 + "'Secretary of War', )");
-//
-//			// Insert row #3.
-//			stmt.execute("INSERT INTO Image VALUES ( " + "'A-103', " + "'William Seward', " 
-//						 + "'Secretary of State', " + "16.95 )");
-//
-//			// Insert row #4.
-//			stmt.execute("INSERT INTO Image VALUES ( " + "'A-104', " + "'Ulysses S. Grant', " 
-//						 + "'Commanding General of the United States Army', " + "13.55 )");
-//
-//			// Insert row #5.
-//			stmt.execute("INSERT INTO Image VALUES ( " + "'A-105', " + "'Paul Turnbaugh', " 
-//						 + "'Presidential Aid', " + "5.95 )");
+
+			// Insert row #1.Door
+			stmt.execute("INSERT INTO Image VALUES ( " + "'D-101', " + "'Door_1', " 
+						 + "'http://1.bp.blogspot.com/_5ke3OeOEo0g/TLrm7groP8I/AAAAAAAACqU/6FQEcnYbMXY/s1600/3_door.jpg' )");
+
+			// Insert row #2.Hall
+			stmt.execute("INSERT INTO Image VALUES ( " + "'H-101', " + "'Hall_1', " 
+						 + "'https://s-media-cache-ak0.pinimg.com/736x/ed/40/aa/ed40aa1a34995ce14b0a7e57dc3f3b8c.jpg' )");
+			
+			//Insert row #3.Chest
+			stmt.execute("INSERT INTO Image VALUES ( " + "'C-101', " + "'Chest_1', " 
+					 + "'https://revphil2011.files.wordpress.com/2011/04/treasure_chest_medium.png' )");
+			
 
 			System.out.println("Image table created.");
 		} catch (SQLException ex) {
+			System.out.println("ERROR: " + ex.getMessage());
+		}
+	}
+	
+	public static void initDB(){
+		final String DB_URL = "jdbc:hsqldb:file:ObjectsDB/objects;hsqldb.lock_file=false";
+
+		try {
+			// Create a connection to the database.
+			Connection conn = DriverManager.getConnection(DB_URL);
+
+			dropTables(conn);
+			
+			buildImageTable(conn);
+			
+			conn.close();
+		} catch (Exception ex) {
 			System.out.println("ERROR: " + ex.getMessage());
 		}
 	}

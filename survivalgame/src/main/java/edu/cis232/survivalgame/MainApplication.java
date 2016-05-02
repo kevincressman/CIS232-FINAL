@@ -20,13 +20,13 @@ public class MainApplication extends Application{
 	@Override
 	public void start(Stage stage) throws Exception {
 		// TODO Auto-generated method stub
-		Parent parent = FXMLLoader.load(MainApplication.class.getResource("Coin.fxml"));
+		Parent parent = FXMLLoader.load(MainApplication.class.getResource("Game.fxml"));
 		
 		Scene scene = new Scene(parent);
 		
 		stage.setScene(scene);
-		
-		stage.setTitle("Paul and Kevin's Survival Game!");
+		//REQ#1
+		stage.setTitle("Paul and Kevin's Survival Game!");	
 		stage.show();
 	}
 }
