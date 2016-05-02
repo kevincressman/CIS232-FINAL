@@ -16,12 +16,14 @@ public class LockedDoor extends Openable{
 	public void setValue(int value) {
 			this.value = value;
 		}
-	public void Open(){
+	public String Open(){
 		if (locked== true){
-			System.out.println("The "+getName()+" is Locked. You Must Unlock It.");
+			String statement = "The "+getName()+" is Locked. You Must Unlock It.";
+			return statement;
 		}
 		else{
-			System.out.println("You open the "+getName());
+			String statement = "You open the "+getName();
+			return statement;
 			//whatever code were working on to go to next room
 			}
 		

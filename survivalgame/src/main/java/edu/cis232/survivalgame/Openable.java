@@ -13,7 +13,8 @@ public abstract class Openable extends Object{
 		this.value = value;
 	}
 	
-	public void Open(){
-		System.out.println("You open the "+getName());
+	public String Open(){
+		String statement = "You open the "+getName();
+		return statement;
 	}
 }

@@ -9,9 +9,9 @@ public class Chest extends Openable{
 	super(name, 0);	
 		this.setItem(i);
 	}
-	public void Open(){
-		System.out.println("You open the "+getName()+ ".\nIt Contains the "+item.getName());
-		
+	public String Open(){
+		String statement = "You open the "+getName()+ ".\nIt Contains the "+item.getName();
+		return statement;
 	}
 	public Item getItem() {
 		return item;

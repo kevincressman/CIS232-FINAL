@@ -10,19 +10,22 @@ import javafx.stage.Stage;
  *
  */
 public class App extends Application
-{    public static void main( String[] args ){
+{    public static void main( String[] args ){/*
     System.out.println( "Hello World!" );
     launch(args);
-}
-//        System.out.println( "Hello World!" );
-//        Openable[] map = { new Door("First Door", 0), new LockedDoor("Iron Door", 1), new Chest("Wooden Chest", new Item ("Second Key", 2)), new LockedDoor("Portcullis", 2) };
-//        //{ new Item("First Key", 1)};
-//		ArrayList<Item> inventory = new ArrayList<Item>();
-//		inventory.add(new Item("First Key", 1));
-//		for(Object object : map){
-//			//on click
-//			OpenifOpenable(object, inventory);
-//}}
+}*/
+        System.out.println( "Hello World!" );
+        Openable[] map = { new Door("First Door", 0), new LockedDoor("Iron Door", 1), new Chest("Wooden Chest", new Item ("Second Key", 2)), new LockedDoor("Portcullis", 2) };
+        
+		ArrayList<Item> inventory = new ArrayList<Item>();
+		inventory.add(new Item("First Key", 1));
+		for(Object object : map){
+			//on click
+			OpenifOpenable(object, inventory);
+		}
+
+		}
+	
 		
     
 	@Override

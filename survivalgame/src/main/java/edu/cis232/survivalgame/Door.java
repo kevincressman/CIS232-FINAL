@@ -7,8 +7,9 @@ public class Door extends Openable{
 		super(name, value);
 		this.value = value;
 	}
-	public void Open(){
-		System.out.println("You open the "+getName());
+	public String Open(){
+		String statement = "You open the "+getName();
+		return statement;
 		//whatever code were working on to go to next room
 	}
 	public void Inspect(){

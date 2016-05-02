@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -41,7 +42,8 @@ public class GameController {
      */
     @FXML
     void OpenChest(MouseEvent event) {
-
+    	
+    	lblMessage.setText(OpenIfOpenable(ARGUMENTS));
     }
 
     /*
@@ -105,5 +107,35 @@ public class GameController {
         img2.setImage(chestImage);
         
     }
+	public static void OpenifOpenable(Object object, ArrayList<Item> inventory){
+		if(object instanceof Door){
+			Openable opened = (Openable)object;
+			opened.Open();
+			
+		}else if(object instanceof Chest){
+			Openable opened = (Openable)object;
+			opened.Open();
+			Item i = ((Chest) opened).getItem();
+			inventory.add(i);
+			
+		}else if(object instanceof LockedDoor){
+			Openable opened = (Openable)object;
+			opened.Open();
+			//on click
+			CheckForKey((LockedDoor)object, inventory);
+			
+		} else {
+			System.out.println("The "+ object.getName() + " is not openable");
+		}
+	}
 
+	public static void CheckForKey(LockedDoor door, ArrayList<Item> inventory){
+		
+		for(Item i : inventory){
+			if(door.getValue()==i.getValue()){
+				door.unlock();
+				System.out.println("The "+ door.getName() + " Has Been Opened!");
+			}
+		}
+	}
 }
