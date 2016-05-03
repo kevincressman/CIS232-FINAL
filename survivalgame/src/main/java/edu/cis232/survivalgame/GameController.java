@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -46,8 +47,10 @@ ArrayList<Item> inventory = new ArrayList<Item>();
      * Attempts to open the door seeing whether or not the
      * door is locked
      */
-    @FXML
-    void OpenObject(MouseEvent event, Object thingy) {
+   
+    
+    
+    void OpenObject(Object thingy) {
     	
     	OpenIfOpenable(thingy , inventory);
     	
@@ -141,6 +144,15 @@ ArrayList<Item> inventory = new ArrayList<Item>();
         
         Door door1 = new Door("First Door", 0);
         img1.setImage(doorImage);
+        img1.setOnMouseClicked(new EventHandler<MouseEvent>(){
+
+			@Override
+			public void handle(MouseEvent e) {
+				System.out.println(door1.inspect());
+				
+			}
+        	
+        });
         Chest chest1 = new Chest("First Chest", new Item("Iron Key", 1));
         img2.setImage(chestImage);
         

@@ -12,7 +12,8 @@ public class Door extends Openable{
 		return statement;
 		//whatever code were working on to go to next room
 	}
-	public void Inspect(){
-		System.out.println("A Sturdy Wooden Door.");
+	public String inspect(){
+		String statement = "A Sturdy Wooden Door.";
+		return statement;
 	}
 }
