@@ -14,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.input.MouseEvent;
 
 public class GameController {
@@ -246,11 +247,12 @@ ArrayList<Item> inventory = new ArrayList<Item>();
 			}
         	
         });
-        img1.setOnScroll(new ObjectProperty<EventHandler<? super ScrollEvent>>(){
+        img1.setOnScroll(new EventHandler<ScrollEvent>(){
 
 			@Override
-			public void handle(ScrollEvent e) {
-				lblMessage.setText(door2.Open());
+			public void handle(javafx.scene.input.ScrollEvent wheel) {
+				
+				lblMessage.setText(door2.unlock());
 				
 			}
         	
