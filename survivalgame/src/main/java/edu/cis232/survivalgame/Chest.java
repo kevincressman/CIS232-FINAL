@@ -19,4 +19,8 @@ public class Chest extends Openable{
 	public void setItem(Item item) {
 		this.item = item;
 	}
+	public String inspect(){
+		String statement = "A Wooden Chest. What could be inside?";
+		return statement;
+	}
 }

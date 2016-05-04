@@ -141,20 +141,140 @@ ArrayList<Item> inventory = new ArrayList<Item>();
         
         imgBack.setImage(hallImage);
         
+        lblMessage.setText("Welcome to the Game.\n"
+        		+ "You have escaped from your cell, but you can hear your captors\n close behind. Run quickly, but be careful; you cannot go back.");
         
         Door door1 = new Door("First Door", 0);
         img1.setImage(doorImage);
+        img1.setOnMouseEntered(new EventHandler<MouseEvent>(){
+
+			@Override
+			public void handle(MouseEvent e) {
+				lblMessage.setText(door1.inspect());
+
+				
+			}
+        	
+        });
         img1.setOnMouseClicked(new EventHandler<MouseEvent>(){
 
 			@Override
 			public void handle(MouseEvent e) {
-				System.out.println(door1.inspect());
+				lblMessage.setText(door1.Open());				
+				try {
+					secondRoom();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				
 			}
         	
         });
         Chest chest1 = new Chest("First Chest", new Item("Iron Key", 1));
         img2.setImage(chestImage);
+        img2.setOnMouseEntered(new EventHandler<MouseEvent>(){
+        	
+			@Override
+			public void handle(MouseEvent e) {
+				lblMessage.setText(chest1.inspect());
+				
+			}
+        	
+        });
+        img2.setOnMouseClicked(new EventHandler<MouseEvent>(){
+
+			@Override
+			public void handle(MouseEvent e) {
+				lblMessage.setText(chest1.Open());
+				inventory.add(chest1.getItem());
+				
+			}
+        	
+        });
+        
+    }
+    public void secondRoom() throws SQLException{
+    	final String DB_URL = "jdbc:hsqldb:file:ObjectsDB/objects;ifexists=true;hsqldb.lock_file=false";
+    	
+    	// Create a connection to the database.
+		Connection conn = DriverManager.getConnection(DB_URL);
+		// Create a Statement object.
+		Statement stmt = conn.createStatement();
+		
+		String selectSql = "SELECT Address FROM Image";
+		 
+		// Send the statement to the DBMS.
+        ResultSet result = stmt.executeQuery(selectSql);
+        
+        result.next();
+        String chest = result.getString("Address");
+        result.next();
+        String door = result.getString("Address");
+        result.next();
+        String hall = result.getString("Address");
+        
+        conn.close();
+        
+        
+        
+        Image doorImage = new Image(door);
+        Image chestImage = new Image(chest);
+        Image hallImage = new Image(hall);
+        
+        imgBack.setImage(hallImage);
+        
+        lblMessage.setText("You Move on to the second room");
+        
+        LockedDoor door2 = new LockedDoor("Second Door", 1);
+        img1.setImage(doorImage);
+        img1.setOnMouseEntered(new EventHandler<MouseEvent>(){
+
+			@Override
+			public void handle(MouseEvent e) {
+				lblMessage.setText(door2.inspect());
+				
+			}
+        	
+        });
+        img1.setOnMouseClicked(new EventHandler<MouseEvent>(){
+
+			@Override
+			public void handle(MouseEvent e) {
+				lblMessage.setText(door2.Open());
+				
+			}
+        	
+        });
+        img1.setOnScroll(new ObjectProperty<EventHandler<? super ScrollEvent>>(){
+
+			@Override
+			public void handle(ScrollEvent e) {
+				lblMessage.setText(door2.Open());
+				
+			}
+        	
+        });
+        Chest chest1 = new Chest("Second Chest", new Item("Torch", 0));
+        img2.setImage(chestImage);
+        img2.setOnMouseEntered(new EventHandler<MouseEvent>(){
+        	
+			@Override
+			public void handle(MouseEvent e) {
+				lblMessage.setText(chest1.inspect());
+				
+			}
+        	
+        });
+        img2.setOnMouseClicked(new EventHandler<MouseEvent>(){
+
+			@Override
+			public void handle(MouseEvent e) {
+				lblMessage.setText(chest1.Open());
+				
+			}
+        	
+        });
         
     }
 

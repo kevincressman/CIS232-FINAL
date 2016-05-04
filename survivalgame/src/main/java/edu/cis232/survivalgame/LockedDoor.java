@@ -18,7 +18,8 @@ public class LockedDoor extends Openable{
 		}
 	public String Open(){
 		if (locked== true){
-			String statement = "The "+getName()+" is Locked. You Must Unlock It.";
+			String statement = "The "+getName()+" is Locked. Try using the scroll wheel\n"
+					+ "to look in inventory for a way to open it";
 			return statement;
 		}
 		else{
@@ -33,7 +34,13 @@ public class LockedDoor extends Openable{
 			String statement = "You Unlocked the "+getName();
 			return statement;
 	}
-	public void Inspect(){
-		System.out.println("A Sturdy Wooden Door.");
+	public String inspect(){
+		String statement;
+		if (locked== true){
+		statement = "A More Secure Door. Locked, of course.";
+		}
+		else{
+		statement = "A More Secure Door. Recently unlocked.";	
+		}return statement;
 	}
 }
