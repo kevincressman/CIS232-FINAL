@@ -62,6 +62,10 @@ public class CreateImageDB {
 			stmt.execute("INSERT INTO Image VALUES ( " + "'C-101', " + "'Chest_1', " 
 					 + "'https://revphil2011.files.wordpress.com/2011/04/treasure_chest_medium.png' )");
 			
+			//Insert row #4.Black
+			stmt.execute("INSERT INTO Image VALUES ( " + "'B-101', " + "'BLACK_1', " 
+					 + "'https://lh5.ggpht.com/kvswWeqQPJYFZbHQlQPswxIeAOZ-U6JQR5YQ1OYjobK9oT8bvNmptVXJbfwVZS1xnQeg=h900' )");
+			
 
 			System.out.println("Image table created.");
 		} catch (SQLException ex) {

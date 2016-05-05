@@ -17,30 +17,33 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.input.MouseEvent;
 
+@SuppressWarnings("restriction")
 public class GameController {
 	
 ArrayList<Item> inventory = new ArrayList<Item>();
+StringBuilder sb = new StringBuilder();
+String next = "You Move on to the next room";
+boolean unlocked;
+
 
 	
 	
 	@FXML
     private ImageView imgBack;
-
+    @FXML
+    private Button btnQuit;
     @FXML
     private ImageView img1;
-
     @FXML
     private ImageView img2;
-
     @FXML
     private ImageView img3;
-
+    @FXML
+    private ImageView imgSecret;
     @FXML
     private Button btnStart;
-
     @FXML
-    private Label lblMessage;
-    
+    private Label lblMessage;    
     /*
      * Opens the chest and adds items to the players inventory
      */ 
@@ -49,15 +52,21 @@ ArrayList<Item> inventory = new ArrayList<Item>();
      * door is locked
      */
    
-    
-    
+
     void OpenObject(Object thingy) {
     	
     	OpenIfOpenable(thingy , inventory);
     	
     }
+
+	@FXML
+	void quit(ActionEvent event) {
+		lblMessage.setText("You gave up hope. your pursuers are close.\n"
+				+ "You made it through these rooms:\n"
+				+ "erahaeoryg");
+
+	}
   
-    
     /*
      * Will create the first room and if the Database is not created
      * Will create the Database
@@ -112,7 +121,7 @@ ArrayList<Item> inventory = new ArrayList<Item>();
     /*
      * Reads from the database and sets the first room images
      */
-    public void firstRoom() throws SQLException{
+	public void firstRoom() throws SQLException{
     	final String DB_URL = "jdbc:hsqldb:file:ObjectsDB/objects;ifexists=true;hsqldb.lock_file=false";
     	
     	// Create a connection to the database.
@@ -130,16 +139,15 @@ ArrayList<Item> inventory = new ArrayList<Item>();
         result.next();
         String door = result.getString("Address");
         result.next();
-        String hall = result.getString("Address");
-        
+        String hall = result.getString("Address");      
+        result.next();
+        String black = result.getString("Address");
         conn.close();
-        
-        
         
         Image doorImage = new Image(door);
         Image chestImage = new Image(chest);
         Image hallImage = new Image(hall);
-        
+        Image DarkRoom = new Image(black);
         imgBack.setImage(hallImage);
         
         lblMessage.setText("Welcome to the Game.\n"
@@ -152,11 +160,8 @@ ArrayList<Item> inventory = new ArrayList<Item>();
 			@Override
 			public void handle(MouseEvent e) {
 				lblMessage.setText(door1.inspect());
-
-				
 			}
-        	
-        });
+    });
         img1.setOnMouseClicked(new EventHandler<MouseEvent>(){
 
 			@Override
@@ -167,10 +172,8 @@ ArrayList<Item> inventory = new ArrayList<Item>();
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
-				}
-				
-			}
-        	
+				}	
+			}        	
         });
         Chest chest1 = new Chest("First Chest", new Item("Iron Key", 1));
         img2.setImage(chestImage);
@@ -179,9 +182,7 @@ ArrayList<Item> inventory = new ArrayList<Item>();
 			@Override
 			public void handle(MouseEvent e) {
 				lblMessage.setText(chest1.inspect());
-				
 			}
-        	
         });
         img2.setOnMouseClicked(new EventHandler<MouseEvent>(){
 
@@ -191,11 +192,9 @@ ArrayList<Item> inventory = new ArrayList<Item>();
 				inventory.add(chest1.getItem());
 				
 			}
-        	
-        });
-        
+        });  
     }
-    public void secondRoom() throws SQLException{
+	public void secondRoom() throws SQLException{
     	final String DB_URL = "jdbc:hsqldb:file:ObjectsDB/objects;ifexists=true;hsqldb.lock_file=false";
     	
     	// Create a connection to the database.
@@ -216,6 +215,7 @@ ArrayList<Item> inventory = new ArrayList<Item>();
         String hall = result.getString("Address");
         
         conn.close();
+        sb.append("First Room, ");
         
         
         
@@ -223,9 +223,10 @@ ArrayList<Item> inventory = new ArrayList<Item>();
         Image chestImage = new Image(chest);
         Image hallImage = new Image(hall);
         
+        
         imgBack.setImage(hallImage);
         
-        lblMessage.setText("You Move on to the second room");
+        lblMessage.setText(next);
         
         LockedDoor door2 = new LockedDoor("Second Door", 1);
         img1.setImage(doorImage);
@@ -243,6 +244,12 @@ ArrayList<Item> inventory = new ArrayList<Item>();
 			@Override
 			public void handle(MouseEvent e) {
 				lblMessage.setText(door2.Open());
+				try {
+					thirdRoom(unlocked);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}	
 				
 			}
         	
@@ -257,7 +264,7 @@ ArrayList<Item> inventory = new ArrayList<Item>();
 			}
         	
         });
-        Chest chest1 = new Chest("Second Chest", new Item("Torch", 0));
+        Chest chest1 = new Chest("Second Chest", new Item("Torch", 2));
         img2.setImage(chestImage);
         img2.setOnMouseEntered(new EventHandler<MouseEvent>(){
         	
@@ -279,5 +286,162 @@ ArrayList<Item> inventory = new ArrayList<Item>();
         });
         
     }
+	public void thirdRoom(boolean unlocked) throws SQLException{
+		if (unlocked = true){
+	    	final String DB_URL = "jdbc:hsqldb:file:ObjectsDB/objects;ifexists=true;hsqldb.lock_file=false";
+	    	
+	    	// Create a connection to the database.
+			Connection conn = DriverManager.getConnection(DB_URL);
+			// Create a Statement object.
+			Statement stmt = conn.createStatement();
+			
+			String selectSql = "SELECT Address FROM Image";
+			 
+			// Send the statement to the DBMS.
+	        ResultSet result = stmt.executeQuery(selectSql);
+	        
+	        result.next();
+	        String chest = result.getString("Address");
+	        result.next();
+	        String door = result.getString("Address");
+	        result.next();
+	        String hall = result.getString("Address");
+	        conn.close();
+	        sb.append("Second Room, ");
+	        
+	        Image doorImage = new Image(door);
+	        Image chestImage = new Image(chest);
+	        Image hallImage = new Image(hall);
+	        
+	        imgBack.setImage(hallImage);
+	        lblMessage.setText(next);
+	        img1.setVisible(false);
+	        Door rdoor = new Door("Right Door", 0);
+	        img3.setImage(doorImage);
+	        img3.setOnMouseEntered(new EventHandler<MouseEvent>(){
+	
+				@Override
+				public void handle(MouseEvent e) {
+					lblMessage.setText(rdoor.inspect());
+					}
+	        });
+	        img3.setOnMouseClicked(new EventHandler<MouseEvent>(){
+	
+				@Override
+				public void handle(MouseEvent e) {
+					lblMessage.setText(rdoor.Open());
+					try {
+						darkFourthRoom();
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}	
+					}
+	        });
+	        LockedDoor barredDoor = new LockedDoor("Left Door", 8);
+	        img2.setImage(doorImage);
+	        img2.setOnMouseEntered(new EventHandler<MouseEvent>(){
+	        	
+				@Override
+				public void handle(MouseEvent e) {
+					lblMessage.setText(barredDoor.inspect());	
+				}
+			});
+	        img2.setOnMouseClicked(new EventHandler<MouseEvent>(){
+	
+				@Override
+				public void handle(MouseEvent e) {
+					lblMessage.setText(barredDoor.Open());
+				}
+	       });
+	        img2.setOnScroll(new EventHandler<ScrollEvent>(){
+	
+				@Override
+				public void handle(javafx.scene.input.ScrollEvent wheel) {
+					
+					lblMessage.setText(barredDoor.unlock());
+				}
+	        });
+	        
+	    }
+	}
+	public void darkFourthRoom() throws SQLException{
+    	final String DB_URL = "jdbc:hsqldb:file:ObjectsDB/objects;ifexists=true;hsqldb.lock_file=false";
+    	
+    	// Create a connection to the database.
+		Connection conn = DriverManager.getConnection(DB_URL);
+		// Create a Statement object.
+		Statement stmt = conn.createStatement();
+		
+		String selectSql = "SELECT Address FROM Image";
+		 
+		// Send the statement to the DBMS.
+        ResultSet result = stmt.executeQuery(selectSql);
+        
+        result.next();
+        String chest = result.getString("Address");
+        result.next();
+        String door = result.getString("Address");
+        result.next();
+        String hall = result.getString("Address");        
+        result.next();
+        String black = result.getString("Address");
+        
+        conn.close();
+        sb.append("Third Room, ");
+        
+        
+        
+        Image doorImage = new Image(door);
+        Image chestImage = new Image(chest);
+        Image hallImage = new Image(hall);
+        Image DarkRoom = new Image(black);
+        
+        img1.setVisible(false);
+        img2.setVisible(false);
+        img3.setVisible(false);
+        imgBack.setVisible(false);
+        imgSecret.setImage(DarkRoom);
+        
+        lblMessage.setText("This Room is Dark.");
+        
+        LockedDoor sconce = new LockedDoor("Dark Hall", 2);
+        
+        img1.setOnMouseEntered(new EventHandler<MouseEvent>(){
 
+			@Override
+			public void handle(MouseEvent e) {
+				lblMessage.setText("Scroll through your Inventory to try and find a torch.");
+				
+			}
+        	
+        });
+
+        img1.setOnScroll(new EventHandler<ScrollEvent>(){
+
+			@Override
+			public void handle(javafx.scene.input.ScrollEvent wheel) {
+				
+				lblMessage.setText(sconce.unlock());
+				
+			}
+        	
+        });
+        img3.setOnMouseClicked(new EventHandler<MouseEvent>(){
+        	
+			@Override
+			public void handle(MouseEvent e) {
+				lblMessage.setText(sconce.Open());
+				try {
+					darkFourthRoom();
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}	
+				}
+        });
+
+        
+    }
+	
 }

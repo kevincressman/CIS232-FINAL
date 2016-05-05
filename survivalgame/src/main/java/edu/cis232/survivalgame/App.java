@@ -25,7 +25,7 @@ public class App extends Application{
 		
 		stage.setScene(scene);
 		//REQ#1
-		stage.setTitle("Paul and Kevin's Survival Game!");	
+		stage.setTitle("Paul and Kevin's Dungeon Escape!");	
 		stage.show();
 	}
 }
