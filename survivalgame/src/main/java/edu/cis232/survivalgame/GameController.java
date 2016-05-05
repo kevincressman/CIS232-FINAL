@@ -135,19 +135,19 @@ boolean unlocked;
         ResultSet result = stmt.executeQuery(selectSql);
         
         result.next();
+        String black = result.getString("Address");
+        result.next();
         String chest = result.getString("Address");
         result.next();
         String door = result.getString("Address");
         result.next();
-        String hall = result.getString("Address");      
-        result.next();
-        String black = result.getString("Address");
+        String hall = result.getString("Address");
         conn.close();
         
         Image doorImage = new Image(door);
         Image chestImage = new Image(chest);
         Image hallImage = new Image(hall);
-        Image DarkRoom = new Image(black);
+        Image darkRoom = new Image(black);
         imgBack.setImage(hallImage);
         
         lblMessage.setText("Welcome to the Game.\n"
@@ -208,6 +208,8 @@ boolean unlocked;
         ResultSet result = stmt.executeQuery(selectSql);
         
         result.next();
+        String black = result.getString("Address");
+        result.next();
         String chest = result.getString("Address");
         result.next();
         String door = result.getString("Address");
@@ -222,6 +224,7 @@ boolean unlocked;
         Image doorImage = new Image(door);
         Image chestImage = new Image(chest);
         Image hallImage = new Image(hall);
+        Image darkRoom = new Image(black);
         
         
         imgBack.setImage(hallImage);
@@ -301,6 +304,8 @@ boolean unlocked;
 	        ResultSet result = stmt.executeQuery(selectSql);
 	        
 	        result.next();
+	        String black = result.getString("Address");
+	        result.next();
 	        String chest = result.getString("Address");
 	        result.next();
 	        String door = result.getString("Address");
@@ -312,6 +317,7 @@ boolean unlocked;
 	        Image doorImage = new Image(door);
 	        Image chestImage = new Image(chest);
 	        Image hallImage = new Image(hall);
+	        Image darkRoom = new Image(black);
 	        
 	        imgBack.setImage(hallImage);
 	        lblMessage.setText(next);
@@ -379,13 +385,13 @@ boolean unlocked;
         ResultSet result = stmt.executeQuery(selectSql);
         
         result.next();
+        String black = result.getString("Address");
+        result.next();
         String chest = result.getString("Address");
         result.next();
         String door = result.getString("Address");
         result.next();
         String hall = result.getString("Address");        
-        result.next();
-        String black = result.getString("Address");
         
         conn.close();
         sb.append("Third Room, ");
@@ -395,13 +401,13 @@ boolean unlocked;
         Image doorImage = new Image(door);
         Image chestImage = new Image(chest);
         Image hallImage = new Image(hall);
-        Image DarkRoom = new Image(black);
+        Image darkRoom = new Image(black);
         
         img1.setVisible(false);
         img2.setVisible(false);
         img3.setVisible(false);
         imgBack.setVisible(false);
-        imgSecret.setImage(DarkRoom);
+        imgSecret.setImage(darkRoom);
         
         lblMessage.setText("This Room is Dark.");
         
