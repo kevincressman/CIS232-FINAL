@@ -62,8 +62,7 @@ boolean unlocked;
 	@FXML
 	void quit(ActionEvent event) {
 		lblMessage.setText("You gave up hope. your pursuers are close.\n"
-				+ "You made it through these rooms:\n"
-				+ "erahaeoryg");
+				+ "You made it through these rooms:\n"+sb.toString());
 
 	}
   
@@ -413,7 +412,7 @@ boolean unlocked;
         
         LockedDoor sconce = new LockedDoor("Dark Hall", 2);
         
-        img1.setOnMouseEntered(new EventHandler<MouseEvent>(){
+        imgSecret.setOnMouseEntered(new EventHandler<MouseEvent>(){
 
 			@Override
 			public void handle(MouseEvent e) {
@@ -423,7 +422,7 @@ boolean unlocked;
         	
         });
 
-        img1.setOnScroll(new EventHandler<ScrollEvent>(){
+        imgSecret.setOnScroll(new EventHandler<ScrollEvent>(){
 
 			@Override
 			public void handle(javafx.scene.input.ScrollEvent wheel) {
@@ -433,13 +432,13 @@ boolean unlocked;
 			}
         	
         });
-        img3.setOnMouseClicked(new EventHandler<MouseEvent>(){
+        imgSecret.setOnMouseClicked(new EventHandler<MouseEvent>(){
         	
 			@Override
 			public void handle(MouseEvent e) {
 				lblMessage.setText(sconce.Open());
 				try {
-					darkFourthRoom();
+					litFourthRoom();
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -447,6 +446,88 @@ boolean unlocked;
 				}
         });
 
+        
+    }
+	public void litFourthRoom() throws SQLException{
+    	final String DB_URL = "jdbc:hsqldb:file:ObjectsDB/objects;ifexists=true;hsqldb.lock_file=false";
+    	
+    	// Create a connection to the database.
+		Connection conn = DriverManager.getConnection(DB_URL);
+		// Create a Statement object.
+		Statement stmt = conn.createStatement();
+		
+		String selectSql = "SELECT Address FROM Image";
+		 
+		// Send the statement to the DBMS.
+        ResultSet result = stmt.executeQuery(selectSql);
+        
+        result.next();
+        String black = result.getString("Address");
+        result.next();
+        String chest = result.getString("Address");
+        result.next();
+        String door = result.getString("Address");
+        result.next();
+        String hall = result.getString("Address");
+        
+        conn.close();
+ 
+        Image doorImage = new Image(door);
+        Image chestImage = new Image(chest);
+        Image hallImage = new Image(hall);
+        Image darkRoom = new Image(black);
+        
+        
+        imgBack.setImage(hallImage);
+        
+        lblMessage.setText(next);
+        
+        LockedDoor door2 = new LockedDoor("Second Door", 1);
+        img1.setImage(doorImage);
+        img1.setOnMouseEntered(new EventHandler<MouseEvent>(){
+
+			@Override
+			public void handle(MouseEvent e) {
+				lblMessage.setText(door2.inspect());
+				
+			}
+        	
+        });
+        img1.setOnMouseClicked(new EventHandler<MouseEvent>(){
+
+			@Override
+			public void handle(MouseEvent e) {
+				lblMessage.setText(door2.Open());
+				try {
+					thirdRoom(unlocked);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}	
+				
+			}
+        	
+        });
+        Chest chest1 = new Chest("Second Chest", new Item("Torch", 2));
+        img2.setImage(chestImage);
+        img2.setOnMouseEntered(new EventHandler<MouseEvent>(){
+        	
+			@Override
+			public void handle(MouseEvent e) {
+				lblMessage.setText(chest1.inspect());
+				
+			}
+        	
+        });
+        img2.setOnMouseClicked(new EventHandler<MouseEvent>(){
+
+			@Override
+			public void handle(MouseEvent e) {
+				lblMessage.setText(chest1.Open());
+				
+			}
+        	
+        });
         
     }
 	
