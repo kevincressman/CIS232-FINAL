@@ -83,6 +83,7 @@ boolean unlocked;
     		inventory.add(i);
     		
     	}else if(thingy instanceof LockedDoor){
+    		unlocked=false;
     		Openable opened = (Openable)thingy;
     		lblMessage.setText(opened.Open());
     		//on click
@@ -99,6 +100,7 @@ boolean unlocked;
     	String s = "You Cannot open this door.";
     	if(door.getValue()==i.getValue()){
     		lblMessage.setText(door.unlock());
+    		unlocked=true;
     		s = "";
     	}
     	lblMessage.setText(s);
@@ -246,12 +248,17 @@ boolean unlocked;
 			@Override
 			public void handle(MouseEvent e) {
 				lblMessage.setText(door2.Open());
-				try {
-					thirdRoom(unlocked);
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}	
+				if (door2.getLocked()==false){
+					try {
+						thirdRoom();
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}else{
+				
+					lblMessage.setText(door2.Open());			
+				}
 				
 			}
         	
@@ -288,8 +295,8 @@ boolean unlocked;
         });
         
     }
-	public void thirdRoom(boolean unlocked) throws SQLException{
-		if (unlocked = true){
+	public void thirdRoom() throws SQLException{
+		
 	    	final String DB_URL = "jdbc:hsqldb:file:ObjectsDB/objects;ifexists=true;hsqldb.lock_file=false";
 	    	
 	    	// Create a connection to the database.
@@ -368,7 +375,7 @@ boolean unlocked;
 				}
 	        });
 	        
-	    }
+	    
 	}
 	public void darkFourthRoom() throws SQLException{
     	final String DB_URL = "jdbc:hsqldb:file:ObjectsDB/objects;ifexists=true;hsqldb.lock_file=false";
@@ -499,7 +506,7 @@ boolean unlocked;
 			public void handle(MouseEvent e) {
 				lblMessage.setText(door2.Open());
 				try {
-					thirdRoom(unlocked);
+					finalRoom();
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -528,6 +535,65 @@ boolean unlocked;
 			}
         	
         });
+        
+    }
+	public void finalRoom() throws SQLException{
+    	final String DB_URL = "jdbc:hsqldb:file:ObjectsDB/objects;ifexists=true;hsqldb.lock_file=false";
+    	
+    	// Create a connection to the database.
+		Connection conn = DriverManager.getConnection(DB_URL);
+		// Create a Statement object.
+		Statement stmt = conn.createStatement();
+		
+		String selectSql = "SELECT Address FROM Image";
+		 
+		// Send the statement to the DBMS.
+        ResultSet result = stmt.executeQuery(selectSql);
+        
+        result.next();
+        String black = result.getString("Address");
+        result.next();
+        String chest = result.getString("Address");
+        result.next();
+        String door = result.getString("Address");
+        result.next();
+        String hall = result.getString("Address");
+        
+        conn.close();
+        sb.append("Dark Room");
+ 
+        Image doorImage = new Image(door);
+        Image chestImage = new Image(chest);
+        Image hallImage = new Image(hall);
+        Image darkRoom = new Image(black);
+        
+        
+        imgBack.setImage(hallImage);
+        
+        lblMessage.setText(next);
+        
+        Door lastDoor = new Door("Final Door", 1);
+        img1.setImage(doorImage);
+        img1.setOnMouseEntered(new EventHandler<MouseEvent>(){
+
+			@Override
+			public void handle(MouseEvent e) {
+				lblMessage.setText(lastDoor.inspect());
+				
+			}
+        	
+        });
+        img1.setOnMouseClicked(new EventHandler<MouseEvent>(){
+
+			@Override
+			public void handle(MouseEvent e) {
+				lblMessage.setText("You Make it out into the sunlight, a world of "
+						+ "\nopportunity ahead of you");
+				
+			}
+        	
+        });
+
         
     }
 	

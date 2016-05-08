@@ -21,8 +21,7 @@ public class LockedDoor extends Openable{
 			String statement = "The "+getName()+" is Locked. Try using the scroll wheel\n"
 					+ "to look in inventory for a way to open it";
 			return statement;
-		}
-		else{
+		}else{
 			String statement = "You open the "+getName();
 			return statement;
 			//whatever code were working on to go to next room
@@ -42,5 +41,8 @@ public class LockedDoor extends Openable{
 		else{
 		statement = "A More Secure Door. Recently unlocked.";	
 		}return statement;
+	}
+	public boolean getLocked(){
+		return locked;
 	}
 }
