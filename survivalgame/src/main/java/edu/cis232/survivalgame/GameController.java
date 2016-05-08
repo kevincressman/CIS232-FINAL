@@ -371,7 +371,7 @@ boolean unlocked;
 				@Override
 				public void handle(javafx.scene.input.ScrollEvent wheel) {
 					
-					lblMessage.setText(barredDoor.unlock());
+					lblMessage.setText(barredDoor.Open());
 				}
 	        });
 	        
@@ -434,16 +434,7 @@ boolean unlocked;
 			@Override
 			public void handle(javafx.scene.input.ScrollEvent wheel) {
 				
-				lblMessage.setText(sconce.unlock());
 				
-			}
-        	
-        });
-        imgSecret.setOnMouseClicked(new EventHandler<MouseEvent>(){
-        	
-			@Override
-			public void handle(MouseEvent e) {
-				lblMessage.setText(sconce.Open());
 				try {
 					litFourthRoom();
 					} catch (SQLException e1) {
@@ -451,6 +442,8 @@ boolean unlocked;
 						e1.printStackTrace();
 					}	
 				}
+			
+        	
         });
 
         
@@ -484,12 +477,16 @@ boolean unlocked;
         Image hallImage = new Image(hall);
         Image darkRoom = new Image(black);
         
-        
+        img1.setVisible(true);
+        img2.setVisible(true);
+        img3.setVisible(false);
+        imgSecret.setVisible(false);
+        imgBack.setVisible(true);
         imgBack.setImage(hallImage);
         
-        lblMessage.setText(next);
+        lblMessage.setText("You light your Torch, revealing the room");
         
-        LockedDoor door2 = new LockedDoor("Second Door", 1);
+        Door door2 = new Door("Fifth  Door", 1);
         img1.setImage(doorImage);
         img1.setOnMouseEntered(new EventHandler<MouseEvent>(){
 
@@ -515,7 +512,7 @@ boolean unlocked;
 			}
         	
         });
-        Chest chest1 = new Chest("Second Chest", new Item("Torch", 2));
+        Chest chest1 = new Chest("Second Chest", new Item("Sword and Shield", 4));
         img2.setImage(chestImage);
         img2.setOnMouseEntered(new EventHandler<MouseEvent>(){
         	
@@ -569,6 +566,7 @@ boolean unlocked;
         
         
         imgBack.setImage(hallImage);
+        img2.setVisible(false);
         
         lblMessage.setText(next);
         
@@ -578,7 +576,8 @@ boolean unlocked;
 
 			@Override
 			public void handle(MouseEvent e) {
-				lblMessage.setText(lastDoor.inspect());
+				lblMessage.setText(lastDoor.inspect()+".. \n"
+						+ "But you can see some sunlight behind this one");
 				
 			}
         	
@@ -587,8 +586,9 @@ boolean unlocked;
 
 			@Override
 			public void handle(MouseEvent e) {
+				sb.append("Final room");
 				lblMessage.setText("You Make it out into the sunlight, a world of "
-						+ "\nopportunity ahead of you");
+						+ "\nopportunity ahead of you. You Made it through these rooms:\n"+sb);
 				
 			}
         	
