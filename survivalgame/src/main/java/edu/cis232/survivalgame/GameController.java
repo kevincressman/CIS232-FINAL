@@ -112,24 +112,22 @@ boolean unlocked;
 
 	@FXML
     void Start(ActionEvent event) throws SQLException, BadNameException {
-		try{
+		
+		if(tfName.getText() == null){
 			throw new BadNameException(tfName.getText());
-			
-		    	try {
-					firstRoom();
-					btnStart.visibleProperty().setValue(false);
-					tfName.setVisible(false);
-				} catch (SQLException e) {
-						CreateImageDB.initDB();
-					e.printStackTrace();
-				}
-	    	
-	    	
-	    	}catch (BadNameException e){
-	    		e.printStackTrace();
 		}
-	
-    }
+		else{
+	    	try {
+				firstRoom();
+				btnStart.visibleProperty().setValue(false);
+				tfName.setVisible(false);
+			} catch (SQLException e) {
+					CreateImageDB.initDB();
+				e.printStackTrace();
+			}
+	    	
+	    }
+	}
     
     /*
      * Reads from the database and sets the first room images
