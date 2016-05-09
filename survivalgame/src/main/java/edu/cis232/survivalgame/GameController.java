@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-
+import edu.cis232.survivalgame.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -66,6 +66,7 @@ boolean unlocked;
 	void quit(ActionEvent event) {
 		lblMessage.setText("You gave up hope. your pursuers are close.\n"
 				+ "You made it through these rooms:\n"+sb.toString());
+		
 
 	}
   
@@ -110,15 +111,24 @@ boolean unlocked;
     }
 
 	@FXML
-    void Start(ActionEvent event) throws SQLException {
-    	
-    	try {
-			firstRoom();
-			btnStart.visibleProperty().setValue(false);
-		} catch (SQLException e) {
-				CreateImageDB.initDB();
-			e.printStackTrace();
+    void Start(ActionEvent event) throws SQLException, BadNameException {
+		try{
+			throw new BadNameException(tfName.getText());
+			
+		    	try {
+					firstRoom();
+					btnStart.visibleProperty().setValue(false);
+					tfName.setVisible(false);
+				} catch (SQLException e) {
+						CreateImageDB.initDB();
+					e.printStackTrace();
+				}
+	    	
+	    	
+	    	}catch (BadNameException e){
+	    		e.printStackTrace();
 		}
+	
     }
     
     /*

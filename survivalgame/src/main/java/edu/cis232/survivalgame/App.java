@@ -17,6 +17,7 @@ public class App extends Application{
         launch(args);
     }
 
+	@SuppressWarnings("restriction")
 	@Override
 	public void start(Stage stage) throws Exception {
 		// TODO Auto-generated method stub
