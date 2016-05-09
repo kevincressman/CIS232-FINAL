@@ -1,5 +1,6 @@
 package edu.cis232.survivalgame;
 
+import java.awt.TextField;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -14,8 +15,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.ScrollEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 
 @SuppressWarnings("restriction")
 public class GameController {
@@ -38,6 +39,8 @@ boolean unlocked;
     private ImageView img2;
     @FXML
     private ImageView img3;
+    @FXML
+    private TextField tfName;
     @FXML
     private ImageView imgSecret;
     @FXML
@@ -86,7 +89,6 @@ boolean unlocked;
     		unlocked=false;
     		Openable opened = (Openable)thingy;
     		lblMessage.setText(opened.Open());
-    		//on click
     		CheckForKey((LockedDoor)thingy, inventory);
     		
     	} else {
