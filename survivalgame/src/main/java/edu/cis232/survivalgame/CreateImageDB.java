@@ -41,6 +41,7 @@ public class CreateImageDB {
 	 * also adds in four rows of data
 	 */
     
+	//REQ #7
 	public static void buildImageTable(Connection conn) {
 		try {
 
@@ -79,7 +80,7 @@ public class CreateImageDB {
 	
 	public static void initDB(){
 		final String DB_URL = "jdbc:hsqldb:file:ObjectsDB/objects;hsqldb.lock_file=false";
-
+		//REQ #11
 		try {
 			// Create a connection to the database.
 			Connection conn = DriverManager.getConnection(DB_URL);

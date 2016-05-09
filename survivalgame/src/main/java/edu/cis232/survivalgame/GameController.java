@@ -130,6 +130,7 @@ boolean unlocked;
 		// Create a Statement object.
 		Statement stmt = conn.createStatement();
 		
+		//REQ #8
 		String selectSql = "SELECT Address FROM Image";
 		 
 		// Send the statement to the DBMS.
