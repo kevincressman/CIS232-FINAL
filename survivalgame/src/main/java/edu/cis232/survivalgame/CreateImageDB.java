@@ -66,6 +66,10 @@ public class CreateImageDB {
 			stmt.execute("INSERT INTO Image VALUES ( " + "'B-101', " + "'BLACK_1', " 
 					 + "'https://lh5.ggpht.com/kvswWeqQPJYFZbHQlQPswxIeAOZ-U6JQR5YQ1OYjobK9oT8bvNmptVXJbfwVZS1xnQeg=h900' )");
 			
+			//Insert row #5.Land
+			stmt.execute("INSERT INTO Image VALUES ( " + "'L-101', " + "'Land_1', " 
+					 + "'https://www.expired-domains.co/content/wp-content/uploads/2015/08/Late-Summer-Field-Summer-Landscape-.jpg' )");
+			
 
 			System.out.println("Image table created.");
 		} catch (SQLException ex) {

@@ -512,7 +512,7 @@ boolean unlocked;
 			}
         	
         });
-        Chest chest1 = new Chest("Second Chest", new Item("Sword and Shield", 4));
+        Chest chest1 = new Chest("Third Chest", new Item("Sword and Shield", 4));
         img2.setImage(chestImage);
         img2.setOnMouseEntered(new EventHandler<MouseEvent>(){
         	
@@ -555,15 +555,17 @@ boolean unlocked;
         String door = result.getString("Address");
         result.next();
         String hall = result.getString("Address");
+        result.next();
+        String land = result.getString("Address");
         
         conn.close();
-        sb.append("Dark Room");
+        sb.append("Dark Room, ");
  
         Image doorImage = new Image(door);
         Image chestImage = new Image(chest);
         Image hallImage = new Image(hall);
         Image darkRoom = new Image(black);
-        
+        Image landscape = new Image(land);
         
         imgBack.setImage(hallImage);
         img2.setVisible(false);
@@ -586,7 +588,9 @@ boolean unlocked;
 
 			@Override
 			public void handle(MouseEvent e) {
-				sb.append("Final room");
+				sb.append("Final room.");
+				imgBack.setImage(landscape);
+				img1.setVisible(false);
 				lblMessage.setText("You Make it out into the sunlight, a world of "
 						+ "\nopportunity ahead of you. You Made it through these rooms:\n"+sb);
 				
