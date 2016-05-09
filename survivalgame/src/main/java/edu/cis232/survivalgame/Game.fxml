@@ -9,7 +9,7 @@
    <children>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: BLACK;" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <ImageView fx:id="imgBack" fitHeight="406.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <ImageView fx:id="imgBack" fitHeight="406.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
          </children>
       </AnchorPane>
       <ImageView fx:id="imgSecret" fitHeight="320.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true" />
