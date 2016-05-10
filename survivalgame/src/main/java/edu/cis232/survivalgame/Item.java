@@ -1,5 +1,5 @@
 package edu.cis232.survivalgame;
-
+//REQ#6
 public class Item extends Object{
 
 	protected int value;

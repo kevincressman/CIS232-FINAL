@@ -1,5 +1,5 @@
 package edu.cis232.survivalgame;
-
+//REQ#5
 public class Object {
 	private String name;
 

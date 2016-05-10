@@ -1,11 +1,11 @@
 package edu.cis232.survivalgame;
-
-public class LockedDoor extends Openable{
+//REQ#4//REQ#6
+public class LockedDoor extends Object implements Openable{
 	protected int value;
 	protected boolean locked = true;
 	
 	public LockedDoor(String name, int value){
-		super(name, value);
+		super(name);
 		this.value = value;
 		
 	}
@@ -16,6 +16,7 @@ public class LockedDoor extends Openable{
 	public void setValue(int value) {
 			this.value = value;
 		}
+	@Override
 	public String Open(){
 		if (locked== true){
 			String statement = "The "+getName()+" is Locked. Try using the scroll wheel\n"
@@ -24,7 +25,7 @@ public class LockedDoor extends Openable{
 		}else{
 			String statement = "You open the "+getName();
 			return statement;
-			//whatever code were working on to go to next room
+			
 			}
 		
 		}
@@ -33,6 +34,7 @@ public class LockedDoor extends Openable{
 			String statement = "You Unlocked the "+getName();
 			return statement;
 	}
+	@Override
 	public String inspect(){
 		String statement;
 		if (locked== true){
