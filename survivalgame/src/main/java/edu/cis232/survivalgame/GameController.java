@@ -113,7 +113,8 @@ boolean unlocked;
 	@FXML
     void Start(ActionEvent event) throws SQLException, BadNameException {
 		
-		if(tfName.getText() == null){
+		if(tfName.getText().isEmpty()){
+			lblMessage.setText("Please enter a Name");
 			throw new BadNameException(tfName.getText());
 		}
 		else{
