@@ -1,5 +1,6 @@
 package edu.cis232.survivalgame;
 
+import javafx.scene.layout.Pane;
 import javafx.scene.control.TextField;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -28,7 +29,8 @@ boolean unlocked;
 
 
 	
-	
+	@FXML
+	private Pane backpane;
 	@FXML
     private ImageView imgBack;
     @FXML
@@ -612,5 +614,11 @@ boolean unlocked;
 
         
     }
+	@FXML
+	void initialize(){
+		
+		imgBack.fitWidthProperty().bind(backpane.widthProperty());
+		imgBack.fitHeightProperty().bind(backpane.heightProperty());
+	}
 	
 }
