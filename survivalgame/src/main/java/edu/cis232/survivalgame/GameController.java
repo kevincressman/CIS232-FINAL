@@ -23,6 +23,7 @@ import javafx.scene.input.ScrollEvent;
 public class GameController {
 	
 ArrayList<Item> inventory = new ArrayList<Item>();
+//REQ#2
 StringBuilder sb = new StringBuilder();
 String next = "You Move on to the next room";
 boolean unlocked;
@@ -104,24 +105,23 @@ boolean unlocked;
     }
 
 	@FXML
-    void Start(ActionEvent event) throws SQLException, BadNameException {
+    void Start(ActionEvent event) throws SQLException {
 		
-		if(tfName.getText().isEmpty()){
-			lblMessage.setText("Please enter a Name");
-			throw new BadNameException(tfName.getText());
-		}
-		else{
 	    	try {
+	    		Player user = new Player(tfName.getText());
 				firstRoom();
 				btnStart.visibleProperty().setValue(false);
 				tfName.setVisible(false);
-			} catch (SQLException e) {
+			}catch (SQLException e) {
 					CreateImageDB.initDB();
 				e.printStackTrace();
-			}
-	    	
-	    }
+			}catch(BadNameException e){
+				//REQ #12
+				lblMessage.setText(e.getMessage());}
+		
+	    
 	}
+	
     
     /*
      * Reads from the database and sets the first room images
@@ -257,7 +257,6 @@ boolean unlocked;
 					try {
 						thirdRoom();
 					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 				}else{
