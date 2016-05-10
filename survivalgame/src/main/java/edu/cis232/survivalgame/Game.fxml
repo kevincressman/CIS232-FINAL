@@ -21,7 +21,6 @@
          </center>
       </BorderPane>
       <ImageView fx:id="imgSecret" fitHeight="320.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true" />
-      <Button fx:id="btnQuit" mnemonicParsing="false" onAction="#quit" text="Quit" />
       <Button fx:id="btnStart" layoutX="276.0" layoutY="64.0" mnemonicParsing="false" onAction="#Start" text="Start" />
       <TextField fx:id="tfName" layoutX="214.0" layoutY="359.0" />
       <Label fx:id="lblMessage" layoutX="150.0" layoutY="337.0" />

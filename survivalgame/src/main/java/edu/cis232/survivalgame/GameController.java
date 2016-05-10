@@ -34,8 +34,6 @@ boolean unlocked;
 	@FXML
     private ImageView imgBack;
     @FXML
-    private Button btnQuit;
-    @FXML
     private ImageView img1;
     @FXML
     private ImageView img2;
@@ -64,13 +62,6 @@ boolean unlocked;
     	
     }
 
-	@FXML
-	void quit(ActionEvent event) {
-		lblMessage.setText("You gave up hope. your pursuers are close.\n"
-				+ "You made it through these rooms:\n"+sb.toString());
-		
-
-	}
   
     /*
      * Will create the first room and if the Database is not created
